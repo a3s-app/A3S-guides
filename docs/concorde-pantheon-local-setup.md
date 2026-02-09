@@ -11,7 +11,7 @@ A guide to setting up and running the Concorde Drupal project locally.
 | **Lando** | https://lando.dev |
 | **Docker Desktop** | https://docker.com/products/docker-desktop |
 | **Pantheon Account** | Access to the Concorde project |
-| **Machine Token** | https://dashboard.pantheon.io/users/#account/tokens/ |
+| **Machine Token** | [https://dashboard.pantheon.io/users/#account/tokens/](https://dashboard.pantheon.io/personal-settings/machine-tokens) |
 
 ---
 
