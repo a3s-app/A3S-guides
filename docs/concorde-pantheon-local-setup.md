@@ -100,7 +100,7 @@ You should see an **orange banner** at the top of every page:
 
 > 🚀 LOCAL DEV ENVIRONMENT - Dev is working here!
 
-![Local Dev Banner Screenshot](../screenshots/Screenshot%202026-02-09%20at%2010.21.24%20PM.png)
+![Local Dev Banner Screenshot](../screenshots/local-dev-banner.png)
 
 **If you see the banner, your local environment is working correctly!**
 
