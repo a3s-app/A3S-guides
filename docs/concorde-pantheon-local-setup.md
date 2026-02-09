@@ -39,7 +39,7 @@ lando pull --database=ada --files=ada --code=none
 ```
 
 > **First time?** You'll be prompted for a Pantheon machine token.  
-> Generate one at: https://dashboard.pantheon.io/users/#account/tokens/
+> Generate one at: [https://dashboard.pantheon.io/users/#account/tokens/](https://dashboard.pantheon.io/users/#account/tokens/)
 
 ### 4. Clear Cache & Run Updates
 
