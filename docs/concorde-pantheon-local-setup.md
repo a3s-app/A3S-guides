@@ -20,7 +20,7 @@ A guide to setting up and running the Concorde Drupal project locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url> concorde-www
+git clone ssh://codeserver.dev.c40d02cc-768d-4d33-95ca-fadd859191a5@codeserver.dev.c40d02cc-768d-4d33-95ca-fadd859191a5.drush.in:2222/~/repository.git -b ada concorde-www
 cd concorde-www
 ```
 
@@ -33,6 +33,8 @@ lando start
 Wait for all containers to start. You'll see URLs printed at the end.
 
 ### 3. Pull Database from Pantheon
+
+Here make sure you checkout ada branch in everything step you can simply run lando pull and it will ask to you select bracnh 2-3 times so just select ADA in all of them
 
 ```bash
 lando pull --database=ada --files=ada --code=none
