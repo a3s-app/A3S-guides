@@ -2,6 +2,10 @@
 
 ### concorde_bs Theme · Concorde Career Colleges
 
+**Document location:** `web/themes/custom/concorde_bs/FRONTEND-GUIDE.md`
+
+**Theme path:** `web/themes/custom/concorde_bs/`
+
 ---
 
 ## Theme Structure (Relevant Files)
@@ -180,32 +184,13 @@ If your code is **not found** in the compiled output, the build did not pick up 
 
 <br>
 
-### 2. Disable CSS/JS Aggregation (Development Only)
-
-Drupal aggregates CSS and JS by default, which means it may serve a cached bundle that does not include your latest build. Disable aggregation during development:
-
-```bash
-lando drush config:set system.performance css.preprocess 0 -y
-lando drush config:set system.performance js.preprocess 0 -y
-lando drush cr
-```
-
-> **Re-enable before pushing to production:**
-> ```bash
-> lando drush config:set system.performance css.preprocess 1 -y
-> lando drush config:set system.performance js.preprocess 1 -y
-> lando drush cr
-> ```
-
-<br>
-
-### 3. Hard Refresh the Browser
+### 2. Hard Refresh the Browser
 
 Always use **Cmd + Shift + R** (Mac) or **Ctrl + Shift + R** (Windows) to bypass the browser cache.
 
 <br>
 
-### 4. Inspect in DevTools
+### 3. Inspect in DevTools
 
 Open the browser DevTools (`Cmd + Option + I`) and go to the **Network** tab:
 
@@ -320,7 +305,7 @@ grep "JS PIPELINE WORKING" web/themes/custom/concorde_bs/assets/js/scripts.js
 | Symptom | Likely Cause | Fix |
 |---------|-------------|-----|
 | Code not in compiled `styles.css` or `scripts.js` | Missing import in entry point | Add `@import` in `styles.scss` or `import` in `scripts.js` |
-| Build succeeds but site shows old styles/JS | Drupal CSS/JS aggregation is on | Disable aggregation (see above) and `lando drush cr` |
+| Build succeeds but site shows old styles/JS | Browser or Drupal cache | Hard refresh (`Cmd + Shift + R`) and `lando drush cr` |
 | Hard refresh doesn't help | Browser is serving a stale cached version | Open a new incognito/private window, or clear browser cache entirely |
 | Changes appear inside Lando but not on host | Lando file sync delay | Wait a few seconds, or restart Lando (`lando restart`) |
 | `npm run styles` fails with Sass error | Syntax error in your SCSS | Check the error message for the file and line number |
