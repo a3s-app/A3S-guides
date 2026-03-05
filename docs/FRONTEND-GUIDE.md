@@ -52,7 +52,9 @@ Accessibility overrides touch multiple unrelated elements across the site (chat 
 
 **Step 1** — Open `src/scss/_a11y-fixes.scss` (create it if it doesn't exist yet)
 
-Add your rules there. This file is for overrides that don't belong to any single component — focus indicators, chat widget tweaks, screen reader fixes, etc.
+The `_` prefix is a Sass convention called a **partial**. It tells the Sass compiler "don't compile this file on its own — it will be imported by another file." Without the `_`, the build would try to compile it as a standalone CSS file. JS files don't use this convention because the JS bundler (Rollup) handles imports differently — every file is resolved through `import` statements, so no naming prefix is needed.
+
+Add your rules in this file. It's for overrides that don't belong to any single component — focus indicators, chat widget tweaks, screen reader fixes, etc.
 
 You have access to all Bootstrap variables (`$gray-700`, `$spacer`, `$border-width`, etc.) and mixins (`@include media-breakpoint-down(sm)`).
 
