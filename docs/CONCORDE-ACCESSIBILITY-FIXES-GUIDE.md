@@ -296,10 +296,13 @@ grep "CSS PIPELINE WORKING" web/themes/custom/concorde_bs/assets/css/styles.css
 
 ```javascript
 // TEST — remove after confirming
-const testBanner = document.createElement('div');
-testBanner.textContent = 'JS PIPELINE WORKING';
-testBanner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:blue;color:white;text-align:center;padding:8px;font-weight:bold;font-size:14px;z-index:99999;';
-document.body.appendChild(testBanner);
+export default (() => {
+  const testBanner = document.createElement('div');
+  testBanner.textContent = 'JS PIPELINE WORKING';
+  testBanner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:blue;color:white;text-align:center;padding:8px;font-weight:bold;font-size:14px;z-index:99999;';
+  document.body.appendChild(testBanner);
+
+})();
 ```
 
 <br>
