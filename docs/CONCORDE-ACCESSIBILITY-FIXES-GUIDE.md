@@ -1,5 +1,12 @@
 # Frontend Development Guide — Accessibility Fixes
 
+## Before You Start
+
+All accessibility work **must** happen on the `ada` branch. Do not commit directly to the `master` branch.
+
+When your changes are ready, push them to the `ada` branch. After that, no further action is required from our side. The Concorde team will create the pull request, merge the changes, and properly rebase the `ada` branch.
+
+---
 ### concorde_bs Theme · Concorde Career Colleges
 
 **Theme path:** `web/themes/custom/concorde_bs/`
