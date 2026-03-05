@@ -2,8 +2,6 @@
 
 ### concorde_bs Theme · Concorde Career Colleges
 
-**Document location:** `web/themes/custom/concorde_bs/FRONTEND-GUIDE.md`
-
 **Theme path:** `web/themes/custom/concorde_bs/`
 
 ---
