@@ -95,7 +95,33 @@ lando drush cr
 
 **Step 1** — Open `src/js/a11y-fixes.js` (create it if it doesn't exist yet)
 
-Use the `export default (() => { ... })()` pattern. This file is for JS fixes that span multiple unrelated elements.
+This file is for JS fixes that span multiple unrelated elements. Wrap all your code in the following pattern:
+
+```javascript
+export default (() => {
+
+  // your code goes here
+
+})();
+```
+
+Why this pattern?
+
+- `(() => { ... })()` is an **IIFE** (Immediately Invoked Function Expression) — it runs your code as soon as the file loads, and keeps all variables private so they don't pollute the global scope.
+- `export default` is required by the JS bundler (Rollup) so it can bundle the file into the main `scripts.js` output.
+- Files in `src/js/components/` follow this same pattern — check any of them for reference.
+
+**Note:** You may see other top-level JS files (like `textchat-init.js`, `rfi-clicks.js`) using a different pattern:
+
+```javascript
+(function ($, Drupal) {
+  Drupal.behaviors.myBehavior = { ... };
+})(jQuery, Drupal);
+```
+
+Those are **standalone Drupal behavior scripts** — each one is compiled into its own separate output file and loaded independently by Drupal. They use `jQuery` and `Drupal.behaviors` because they need Drupal's behavior system (auto-runs on page load and on AJAX updates).
+
+Our `a11y-fixes.js` is different — it gets imported into `scripts.js` and bundled together, so it uses `export default` instead.
 
 <br>
 
