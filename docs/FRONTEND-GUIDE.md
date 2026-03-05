@@ -1,10 +1,10 @@
-# Frontend Development Guide
+# Frontend Development Guide — Accessibility Fixes
 
 ### concorde_bs Theme · Concorde Career Colleges
 
 ---
 
-## Theme Structure
+## Theme Structure (Relevant Files)
 
 ```
 concorde_bs/
@@ -12,20 +12,12 @@ concorde_bs/
 ├── src/                        ← SOURCE (edit here)
 │   ├── scss/
 │   │   ├── styles.scss              Main SCSS entry point
-│   │   ├── _variables.scss          Theme variables
-│   │   ├── _components.scss         Imports all component partials
-│   │   ├── _a11y-fixes.scss          Accessibility overrides (top-level)
-│   │   └── components/
-│   │       ├── _navbar.scss
-│   │       ├── _buttons.scss
-│   │       └── ...
+│   │   ├── _a11y-fixes.scss         Accessibility CSS overrides
+│   │   └── ...
 │   └── js/
 │       ├── scripts.js               Main JS entry point
-│       ├── a11y-fixes.js            Accessibility fixes (top-level)
-│       └── components/
-│           ├── ada.js
-│           ├── dropdown-megamenu.js
-│           └── ...
+│       ├── a11y-fixes.js            Accessibility JS fixes
+│       └── ...
 │
 ├── assets/                     ← OUTPUT (auto-generated, do not edit)
 │   ├── css/styles.css
@@ -45,74 +37,28 @@ concorde_bs/
 
 | Type of Change | Where It Goes | Imported In |
 |---------------|---------------|-------------|
-| Component styles (navbar, buttons, forms, etc.) | `src/scss/components/_name.scss` | `src/scss/_components.scss` |
-| Accessibility / cross-cutting overrides | `src/scss/_a11y-fixes.scss` | `src/scss/styles.scss` |
-| Component JS (dropdown, carousel, etc.) | `src/js/components/name.js` | `src/js/scripts.js` |
+| Accessibility / cross-cutting CSS | `src/scss/_a11y-fixes.scss` | `src/scss/styles.scss` |
 | Accessibility / cross-cutting JS | `src/js/a11y-fixes.js` | `src/js/scripts.js` |
 
-**Component styles** are scoped to a single UI element (navbar, card, accordion).
-
-**Accessibility overrides** touch multiple unrelated elements across the site (chat widget, search form, sticky footer, focus indicators). These go at the top level of `src/scss/` and `src/js/`, not inside `components/`.
+Accessibility overrides touch multiple unrelated elements across the site (chat widget, search form, focus indicators, etc.). These go at the top level of `src/scss/` and `src/js/`.
 
 ---
 
 <br>
 
-## How to Add Component CSS
-
-**Step 1** — Create a new SCSS partial inside `src/scss/components/`
-
-```
-src/scss/components/_my-component.scss
-```
-
-You have access to all Bootstrap variables (`$gray-700`, `$spacer`, `$border-width`, etc.) and mixins (`@include media-breakpoint-down(sm)`).
-
-<br>
-
-**Step 2** — Open `src/scss/_components.scss` and add your import at the bottom
-
-```scss
-@import "components/my-component";
-```
-
-<br>
-
-**Step 3** — Build
-
-```bash
-lando ssh -s node -c "cd /app/web/themes/custom/concorde_bs && npm run styles"
-```
-
-<br>
-
-**Step 4** — Clear Drupal cache
-
-```bash
-lando drush cr
-```
-
-<br>
-
-**Step 5** — Open https://concorde-www.lndo.site/ and hard refresh (`Cmd + Shift + R`)
-
----
-
-<br>
-
-## How to Add Accessibility / Cross-Cutting CSS
+## How to Add Accessibility CSS
 
 **Step 1** — Open `src/scss/_a11y-fixes.scss` (create it if it doesn't exist yet)
 
 Add your rules there. This file is for overrides that don't belong to any single component — focus indicators, chat widget tweaks, screen reader fixes, etc.
+
+You have access to all Bootstrap variables (`$gray-700`, `$spacer`, `$border-width`, etc.) and mixins (`@include media-breakpoint-down(sm)`).
 
 <br>
 
 **Step 2** — If the file is new, import it in `src/scss/styles.scss` after `components`
 
 ```scss
-@import "root";
-@import "reboot";
 @import "components";
 @import "a11y-fixes";
 ```
@@ -141,53 +87,11 @@ lando drush cr
 
 <br>
 
-## How to Add Component JS
-
-**Step 1** — Create a new JS module inside `src/js/components/`
-
-```
-src/js/components/my-feature.js
-```
-
-Use the `export default (() => { ... })()` pattern to match existing components.
-
-<br>
-
-**Step 2** — Open `src/js/scripts.js` and add your import at the bottom
-
-```javascript
-import "./components/my-feature";
-```
-
-<br>
-
-**Step 3** — Build
-
-```bash
-lando ssh -s node -c "cd /app/web/themes/custom/concorde_bs && npm run scripts"
-```
-
-<br>
-
-**Step 4** — Clear Drupal cache
-
-```bash
-lando drush cr
-```
-
-<br>
-
-**Step 5** — Open https://concorde-www.lndo.site/ and hard refresh (`Cmd + Shift + R`)
-
----
-
-<br>
-
-## How to Add Accessibility / Cross-Cutting JS
+## How to Add Accessibility JS
 
 **Step 1** — Open `src/js/a11y-fixes.js` (create it if it doesn't exist yet)
 
-Use the same `export default (() => { ... })()` pattern. This file is for JS fixes that span multiple unrelated elements.
+Use the `export default (() => { ... })()` pattern. This file is for JS fixes that span multiple unrelated elements.
 
 <br>
 
@@ -313,13 +217,11 @@ Open the browser DevTools (`Cmd + Option + I`) and go to the **Network** tab:
 
 <br>
 
-## Quick Test: Confirm the CSS Pipeline
-
-Use this to confirm your local setup compiles and serves CSS correctly.
+## Quick Test: Confirm CSS Pipeline Is Working
 
 <br>
 
-**1.** Add a temporary test rule at the top of `src/scss/_a11y-fixes.scss` (or any SCSS file you're working in)
+**1.** Add a temporary test rule at the top of `src/scss/_a11y-fixes.scss`
 
 ```scss
 // TEST — remove after confirming
@@ -339,7 +241,7 @@ body::before {
 
 <br>
 
-**2.** Build, clear cache, and hard refresh
+**2.** Build and clear cache
 
 ```bash
 lando ssh -s node -c "cd /app/web/themes/custom/concorde_bs && npm run styles"
@@ -348,9 +250,9 @@ lando drush cr
 
 <br>
 
-**3.** What you should see
+**3.** Hard refresh the site (`Cmd + Shift + R`)
 
-A **bright red bar at the very top of the page** saying **"CSS PIPELINE WORKING"**.
+You should see a **bright red bar at the very top of the page** saying **"CSS PIPELINE WORKING"**.
 
 <br>
 
@@ -362,19 +264,17 @@ grep "CSS PIPELINE WORKING" web/themes/custom/concorde_bs/assets/css/styles.css
 
 <br>
 
-**5.** Clean up — remove the test rule when done
+**5.** Clean up — remove the test rule from `_a11y-fixes.scss`, rebuild, and clear cache
 
 ---
 
 <br>
 
-## Quick Test: Confirm the JS Pipeline
-
-Use this to confirm your local setup compiles and serves JS correctly.
+## Quick Test: Confirm JS Pipeline Is Working
 
 <br>
 
-**1.** Add a temporary test block at the top of the IIFE in `src/js/a11y-fixes.js` (or any JS file you're working in)
+**1.** Add a temporary test block inside the IIFE in `src/js/a11y-fixes.js`
 
 ```javascript
 // TEST — remove after confirming
@@ -386,7 +286,7 @@ document.body.appendChild(testBanner);
 
 <br>
 
-**2.** Build, clear cache, and hard refresh
+**2.** Build and clear cache
 
 ```bash
 lando ssh -s node -c "cd /app/web/themes/custom/concorde_bs && npm run scripts"
@@ -395,9 +295,9 @@ lando drush cr
 
 <br>
 
-**3.** What you should see
+**3.** Hard refresh the site (`Cmd + Shift + R`)
 
-A **blue bar fixed to the bottom of the page** saying **"JS PIPELINE WORKING"**.
+You should see a **blue bar fixed to the bottom of the page** saying **"JS PIPELINE WORKING"**.
 
 <br>
 
@@ -409,7 +309,7 @@ grep "JS PIPELINE WORKING" web/themes/custom/concorde_bs/assets/js/scripts.js
 
 <br>
 
-**5.** Clean up — remove the test block when done
+**5.** Clean up — remove the test block from `a11y-fixes.js`, rebuild, and clear cache
 
 ---
 
